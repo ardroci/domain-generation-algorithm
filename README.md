@@ -15,7 +15,7 @@ For this study I have considered two well known banking trojans, QakBot and Core
 	- CoreBot's DGA generator
 
 - DNS Crawler
-	- Makes a DNS query, sends it and retrieves the reply in json format (RFC8427)
+	- Makes a DNS query, sends it and retrieves the reply in JSON format (RFC8427)
 
 Usage
 -----------
@@ -25,7 +25,7 @@ You can use the skeleton.py file as a starting point for your work.
 python3 skeleton.py --help
 usage: skeleton.py [-h] [--sandbox] [--seed-qakbot {0,1}] [--seed-corebot SEED_COREBOT] [--nr-domains NR_DOMAINS] [--tld TLD]
                    [--dns-name-server DNS_NAME_SERVER] [--dns-timeout DNS_TIMEOUT] [--dns-source DNS_SOURCE_IP_ADDRESS]
-                   [--dns-source-port DNS_SOURCE_PORT] [--dns-udp | --dns-https] [-v] [-vv]
+                   [--dns-source-port DNS_SOURCE_PORT] [--dns-query-type {https,udp}] [-v] [-vv]
 
 QakBot's and CoreBot's DGA generator algorithms.
 
@@ -46,10 +46,11 @@ optional arguments:
                         DNS source IP address.
   --dns-source-port DNS_SOURCE_PORT
                         DNS source port.
-  --dns-udp             Perform DNS queries to the DGA domains over UDP.
-  --dns-https           Perform DNS queries to the DGA domains over HTTPS.
+  --dns-query-type {https,udp}
+                        Perform DNS queries to the DGA domains over UDP or HTTPS.
   -v, --verbose         set loglevel to INFO
   -vv, --very-verbose   set loglevel to DEBUG
+(dga) rcoliveira@C02F60WMML7J dga % 
 ```
 
 ### And a test using DoH calls to QakBot's and CoreBot's domains
@@ -60,4 +61,4 @@ $ python3 skeleton.py --dns-https --tld ardroci.com --nr-domains 10
 TODO
 -----------
 
-- finish implementation of RFC8427 in DNS Crawler class
+- Finish the implementation of RFC8427 in DNS Crawler class
