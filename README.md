@@ -60,5 +60,5 @@ $ python3 skeleton.py --dns-https --tld ardroci.com --nr-domains 10
 
 TODO
 -----------
-
+- Output if domain is active (green) or not (red) based on the RCODE got from the DNS query
 - Finish the implementation of RFC8427 in DNS Crawler class
