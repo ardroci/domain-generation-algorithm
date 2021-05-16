@@ -51,30 +51,16 @@ def parse_args(args):
         type=int,
         default=1,
         required=False)
-    #parser.add_argument(
-    #    '--date',
-    #    dest="date",
-    #    help="The seed & date values will be used by the Mersenne Twister 19937 generator and QakBot's and CoreBot's DGA generators.",
-    #    #action='store_const',
-    #    type=datetime,
-    #    default=datetime.now(),
-    #    required=False)
     parser.add_argument(
         '--tld',
         dest="tld",
         help="Top level domain used by QakBot's and CoreBot's DGA generators.",
         type=str,
-        default='ardrocir.com',
+        default='ardroci.com',
         required=False)
     ################################################################################################
     ##                                          DNS                                               ##
     ################################################################################################
-    #parser.add_argument(
-    #    '--dns-rdtype',
-    #    dest="dns_rdtype",
-    #    help="DNS RDTYPE",
-    #    default='dns.rdatatype.ANY',
-    #    required=False)
     parser.add_argument(
         '--dns-name-server',
         dest="dns_name_server",
@@ -103,18 +89,13 @@ def parse_args(args):
         type=int,
         default=0,
         required=False)
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument(
-        '--dns-udp', 
-        dest="udp",
-        help="Perform DNS queries to the DGA domains over UDP.",
-        action='store_true',
-        required=False)
-    group.add_argument(
-        '--dns-https', 
-        dest="doh",
-        help="Perform DNS queries to the DGA domains over HTTPS.",
-        action='store_true',
+    parser.add_argument(
+        '--dns-query-type',
+        dest="dns_query_type",
+        help="Perform DNS queries to the DGA domains over UDP or HTTPS.",
+        type=str,
+        choices={'udp','https'},
+        default='udp',
         required=False)
     parser.add_argument(
         '-v',
@@ -163,11 +144,14 @@ def main(args):
                             length_upper_bound=0x18).dga()
     print('{0} - {1}'.format('CoreBot domains', CoreBot_domains))
 
-    if args.udp:
+    udp, https = False, False
+    if args.dns_query_type == 'udp':
+        udp = True
         dns_destination_port=53
-    if args.doh:
+    if args.dns_query_type == 'https':
+        https = True
         dns_destination_port=443
-    if args.udp or args.doh:
+    if udp or https:
         q = DNS_Crawler(qnames=QakBot_domains+CoreBot_domains,
                         rdtype=dns.rdatatype.ANY,
                         name_server=args.dns_name_server,
@@ -175,13 +159,13 @@ def main(args):
                         port=dns_destination_port,
                         source=args.dns_source_ip_address,
                         source_port=args.dns_source_port,
-                        udp=args.udp,
-                        doh=args.doh)
-        if args.udp:
+                        udp=udp,
+                        doh=https)
+        if udp:
             udp_responses = q.get_udp_responses()
             print('{0} - {1}'.format('UDP responses', udp_responses))
 
-        if args.doh:
+        if https:
             doh_responses = q.get_doh_responses()
             print('{0} - {1}'.format('DoH responses', doh_responses))
 
