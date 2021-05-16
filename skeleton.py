@@ -92,7 +92,7 @@ def parse_args(args):
     parser.add_argument(
         '--dns-query-type',
         dest="dns_query_type",
-        help="Perform DNS queries to the DGA domains over UDP or HTTPS.",
+        help="Configure if the DNS queries to the DGA domains are going to be sent over UDP or HTTPS.",
         type=str,
         choices={'udp','https'},
         default='udp',
