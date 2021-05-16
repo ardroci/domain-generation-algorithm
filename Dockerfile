@@ -1,15 +1,15 @@
 FROM alpine:latest
 MAINTAINER ardroci
 
-ENV seed_qakbot '0'
-ENV seed_corebot '498698544'
-ENV nr_domains '5'
-ENV tld 'ardroci.com'
-ENV dns_query_type 'udp'
-ENV dns_name_server '8.8.8.8'
-ENV dns_timeout '5'
-ENV dns_source_ip_address '0.0.0.0'
-ENV dns_source_port '0'
+ENV seed_qakbot='0' \
+	seed_corebot='498698544' \
+	nr_domains='5' \
+	tld='ardroci.com' \
+	dns_query_type='udp' \
+	dns_name_server='8.8.8.8' \
+	dns_timeout='5' \
+	dns_source_ip_address='0.0.0.0' \
+	dns_source_port='0'
 
 RUN apk update \
 	&& apk add git python3 \
