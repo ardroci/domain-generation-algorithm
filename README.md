@@ -3,26 +3,24 @@ Domain Generation Algorithm
 
 What is it?
 -----------
+Several malware families use domain generation algorithms (DGAs) periodically to create a large number of domain names used for command and control purposes.
+For this study I have considered two well known banking trojans, QakBot and CoreBot, and created the following content:
 
-You can use the skeleton.py file as a starting point for your work
+ - Pseudo-random Generators
+	- Mersenne Twister 19937 generator
+	- Linear congruential generator
 
-Pseudo-random Generators
------------
+- Domain generation algorithms
+	- QakBot's DGA generators
+	- CoreBot's DGA generator
 
-- Mersenne Twister 19937 generator
-- Linear congruential generator
-
-Domain generation algorithms
------------
-
-- QakBot's DGA generators
-- CoreBot's DGA generator
-
-## DNS Crawler
-- Makes a DNS query, sends it and retrieves the reply in json format (RFC8427)
+- DNS Crawler
+	- Makes a DNS query, sends it and retrieves the reply in json format (RFC8427)
 
 Usage
 -----------
+You can use the skeleton.py file as a starting point for your work.
+
 ```
 python3 skeleton.py --help
 usage: skeleton.py [-h] [--sandbox] [--seed-qakbot {0,1}] [--seed-corebot SEED_COREBOT] [--nr-domains NR_DOMAINS] [--tld TLD]
@@ -56,7 +54,7 @@ optional arguments:
 
 ### And a test using DoH calls to QakBot's and CoreBot's domains
 ```
-$ python3 skeleton.py --dns-https --tld ardroci.com --nr-domains 1
+$ python3 skeleton.py --dns-https --tld ardroci.com --nr-domains 10
 ```
 
 TODO
