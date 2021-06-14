@@ -153,7 +153,7 @@ def main(args):
         dns_destination_port=443
     if udp or https:
         q = DNS_Crawler(qnames=QakBot_domains+CoreBot_domains,
-                        rdtype=dns.rdatatype.ANY,
+                        rdtype=dns.rdatatype.TXT,
                         name_server=args.dns_name_server,
                         dns_timeout=args.dns_timeout,
                         port=dns_destination_port,
